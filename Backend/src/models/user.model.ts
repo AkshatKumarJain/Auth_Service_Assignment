@@ -1,0 +1,79 @@
+import { IUser, UserDocument } from "../interfaces/user.interface";
+import bcrypt from "bcrypt";
+import mongoose, {Schema, Model} from "mongoose";
+
+const userSchema = new mongoose.Schema<IUser>(
+    {
+        username: {
+            type: String, 
+            required: true
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            index: true,
+            lowercase: true
+        },
+        Password: {
+            type: String,
+            required: true,
+            min: [6, "Password must be of atleast 6 characters."],
+            max: [15, "Password cannot exceed 15 characters."]
+        },
+        ProfilePhotoUrl: {
+            type: String,
+            default: null
+        },
+        profilePhotoPublicId: {
+            type: String,
+            default: null
+        },
+        role: {
+            type: String,
+            enum: ["user", "admin"],
+            default: "user"
+        },
+        isAccountVerified: {
+            type: Boolean,
+            default: false
+        },
+        verifyOTP: {
+            type: String,
+            default: ""
+        },
+        verifyOTPExpiresAt: {
+            type: Number,
+            default: 0
+        },
+        resetOTP: {
+            type: String,
+            default: ""
+        },
+        resetOTPExpiresAt: {
+            type: Number,
+            default: 0
+        }
+    },
+    {timestamps: true}
+);
+
+userSchema.pre("save", async function (next) {
+     const user = this as UserDocument;
+    if(!user.isModified("Password"))
+        return;
+        const salt = await bcrypt.genSalt(10);
+        user.Password = await bcrypt.hash(user.Password, salt);
+    } 
+);
+
+userSchema.methods.comparePassword = async function (this: UserDocument,
+    Password: string
+): Promise<boolean> {
+    return bcrypt.compare(Password, this.Password);
+}
+
+
+export const userModel: Model<IUser> =
+  mongoose.models.User ||
+  mongoose.model<IUser>("User", userSchema);

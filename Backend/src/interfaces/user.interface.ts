@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { HydratedDocument } from "mongoose";
 
 export interface IUser{
     _id: mongoose.Types.ObjectId; 
@@ -15,3 +16,13 @@ export interface IUser{
     resetOTPExpiresAt: number;
     comparePassword(Password: string): Promise<boolean>;
 }
+
+export interface createUserDTO{
+    username: string;
+    email: string;
+    Password: string;
+    confirmPassword: string,
+    role?: "user" | "admin"
+}
+
+export type UserDocument = HydratedDocument<IUser>;
