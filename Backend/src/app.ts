@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors"
+import { connectDB } from "./db/connection";
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.use(cors({
   origin: ["http://localhost:5173", "http://localhost:8000", "*"],
   credentials: true
 }));
+
+connectDB();
 
 app.get("/health", (_, res) => {
     res.send("api is running");
