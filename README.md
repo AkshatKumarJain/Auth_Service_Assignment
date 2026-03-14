@@ -8,7 +8,7 @@ This is a **User Authentication Management API** built with **Express.js** and *
 
 1. [Getting Started](#getting-started)
 2. [Installation](#installation)
-3. [API Endpoints](#api-endpoints)
+3. [API Endpoints](#api-endpoints), https://www.npmjs.com/package/redis-jwt-auth
 
    * [User Retrieval](#user-retrieval)
    * [Authentication](#authentication)
@@ -31,6 +31,7 @@ This API manages all user-related operations, including:
 * Sending and verifying OTP for email verification (`sendVerifyOTP` / `verifyEmail`)
 * Resetting forgotten passwords (`forgotPassword` / `resetPassword`)
 * Refreshing JWT tokens (`rotateRefreshToken`)
+* Caching is used in the package redis-jwt-auth for caching of tokens.
 
 It uses a `userService` layer for all database interactions and business logic, ensuring the controller is clean and modular.
 
@@ -79,7 +80,7 @@ Server runs on `http://localhost:5000` (by default).
 #### Get All Users
 
 ```http
-GET /users
+GET api/v1/users
 ```
 
 **Response:**
@@ -94,7 +95,7 @@ GET /users
 #### Get User by Email
 
 ```http
-POST /users/email
+POST api/v1/users/email
 ```
 
 **Request Body:**
@@ -117,7 +118,7 @@ POST /users/email
 #### Get User Profile
 
 ```http
-GET /users/profile
+GET api/v1/users/profile
 ```
 
 Requires authentication (JWT token in headers).
@@ -138,15 +139,15 @@ Requires authentication (JWT token in headers).
 #### Create User (Register)
 
 ```http
-POST /users
+POST api/v1/Auth/register
 ```
 
 **Request Body:**
 
 ```json
 {
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Akshat Jain",
+  "email": "abcd@example.com",
   "password": "password123"
 }
 ```
@@ -155,7 +156,7 @@ POST /users
 
 ```json
 {
-  "data": { "id": 1, "name": "John Doe", "email": "john@example.com" },
+  "data": { "id": 1, "name": "Akshat Jain", "email": "abcd@example.com" },
   "message": "User created successfully"
 }
 ```
@@ -163,14 +164,14 @@ POST /users
 #### Login User
 
 ```http
-POST /users/login
+POST api/v1/Auth/login
 ```
 
 **Request Body:**
 
 ```json
 {
-  "email": "john@example.com",
+  "email": "abcd@example.com",
   "password": "password123"
 }
 ```
@@ -187,7 +188,7 @@ POST /users/login
 #### Logout User
 
 ```http
-POST /users/logout
+POST api/v1/Auth/logout
 ```
 
 Requires authentication.
@@ -204,7 +205,7 @@ Requires authentication.
 #### Refresh Token
 
 ```http
-POST /users/refresh
+POST api/v1/Auth/refresh
 ```
 
 **Request Body:**
@@ -230,7 +231,7 @@ POST /users/refresh
 #### Send Verify OTP
 
 ```http
-POST /users/send-verify-otp
+POST api/v1/Auth/send-verify-otp
 ```
 
 Requires authentication.
@@ -247,7 +248,7 @@ Requires authentication.
 #### Verify Email
 
 ```http
-POST /users/verify-email
+POST api/v1/Auth/verify-email
 ```
 
 **Request Body:**
@@ -273,7 +274,7 @@ POST /users/verify-email
 #### Forgot Password
 
 ```http
-POST /users/forgot-password
+POST api/v1/Auth/forgot-password
 ```
 
 **Request Body:**
@@ -295,7 +296,7 @@ POST /users/forgot-password
 #### Reset Password
 
 ```http
-POST /users/reset-password/:token
+POST api/v1/Auth/reset-password/:token
 ```
 
 **Request Body:**
@@ -381,3 +382,4 @@ When integrating with the frontend, the following attributes are recommended for
 * `userService` layer handles all database operations, so you can easily swap DBs (MongoDB, MySQL, PostgreSQL).
 * JWT-based authentication is used for secure access.
 * OTP verification and password reset are email-driven.
+* redis-jwt-auth is used. (https://www.npmjs.com/package/redis-jwt-auth)
