@@ -7,17 +7,18 @@ This is a **User Authentication Management API** built with **Express.js** and *
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Installation](#installation)
-3. [API Endpoints](#api-endpoints), https://www.npmjs.com/package/redis-jwt-auth
+2. [Postman collection:- https://akshats-team-3223.postman.co/workspace/My-Workspace~ca13ed82-1873-4c2e-83b7-277bd3c9d180/collection/42373492-aa3c34f0-52cf-41ee-81fa-1ce1a8639c2e?action=share&creator=42373492 ]
+3. [Installation](#installation)
+4. [API Endpoints](#api-endpoints), https://www.npmjs.com/package/redis-jwt-auth
 
    * [User Retrieval](#user-retrieval)
    * [Authentication](#authentication)
    * [Email Verification & OTP](#email-verification--otp)
    * [Password Management](#password-management)
-4. [Frontend Integration](#frontend-integration)
-5. [Error Handling](#error-handling)
-6. [Attributes for Styling](#attributes-for-styling)
-7. [Notes](#notes)
+5. [Frontend Integration](#frontend-integration)
+6. [Error Handling](#error-handling)
+7. [Attributes for Styling](#attributes-for-styling)
+8. [Notes](#notes)
 
 ---
 
