@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors"
 import { connectDB } from "./db/connection";
+import authRoute from "./routes/Auth.route"
 import userRoute from "./routes/user.route"
 
 const app = express();
@@ -15,7 +16,8 @@ app.use(cors({
 
 connectDB();
 
-app.use("/api/v1/Auth", userRoute);
+app.use("/api/v1/Auth", authRoute);
+app.use("/api/v1/users", userRoute);
 
 app.get("/health", (_, res) => {
     res.send("api is running");
